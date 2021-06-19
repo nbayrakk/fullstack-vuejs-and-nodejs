@@ -7,7 +7,7 @@ const Schema = mongoose.Schema
 const AlertSchema = new Schema({
     content: {
         type: String,
-        required: [true, "Name is required!"]
+        required: [true, "Content is required!"]
     },
     slug: String,
     createdAt: {

@@ -1,6 +1,6 @@
 
 const sendJwtToClient = (user, res) => {
-
+    
     const token = user.generateJwtFromUser();
     const { JWT_COOKIE, NODE_ENV } = process.env
     return res
@@ -14,8 +14,9 @@ const sendJwtToClient = (user, res) => {
             success: true,
             access_token: token,
             user: {
-                name: user.name,
-                email: user.email
+                id:user._id,
+                name:user.name,
+                email:user.email
             }
         })
 

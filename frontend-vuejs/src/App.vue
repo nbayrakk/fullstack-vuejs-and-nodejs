@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <Header/>
+  <div  id="app">
+    <Header />
     <router-view></router-view>
     <!-- <HomePage/> -->
     <Footer/>
@@ -16,6 +16,9 @@ export default {
   components: {
     Header,
     Footer
+  },
+  created(){
+    
   }
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
-  <div class="hello">
+  <div class="hello" style="padding:10px">
     <div
-      class="col-md-3"
+      class="col-md-3 table-row"
       style="display:inline-block"
       v-for="task in getTasks"
       v-bind:key="task._id"
     >
 
-      <div style="padding:10px">
+      <div style="padding:10px" class=" table-row">
         <Task :task="task" />
       </div>
     </div>
@@ -42,11 +42,15 @@ export default {
         title: this.title,
         detail: this.detail,
       };
-      this.$store.dispatch("newTask", newTask);
+      this.$store.dispatch("newTask", newTask)
+      .then(()=>{
+        this.title =''
+        this.detail=''
+      })
     }
   },
   computed: {
-    ...mapGetters(["getTasks"]),
+    ...mapGetters(["getTasks","currentUser"]),
   },
   created() {
     this.fetchTasks();
@@ -54,4 +58,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.table-row:nth-of-type(odd) {
+}
+.table-row:nth-of-type(even) {
+  background: #edf1f7;
+}
+</style>

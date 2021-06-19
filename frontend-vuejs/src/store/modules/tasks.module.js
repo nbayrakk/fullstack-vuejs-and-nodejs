@@ -15,7 +15,6 @@ const actions = {
         commit('updateTask', data)
     },
     async fetchTask({ commit }, taskId) {
-        console.log(taskId)
         const { data } = await taskService.getTask(taskId)
         commit('setTask', data)
     },
@@ -33,7 +32,6 @@ const mutations = {
         return state.tasks.push(task.data)
     },
     setTask: (state, task) => {
-        console.log(task)
         return state.task = task.data
     },
     deleteTask:(state,task)=>{
@@ -51,11 +49,9 @@ const mutations = {
 };
 const getters = {
     getTasks: (state) => {
-        console.log(state.tasks)
         return state.tasks
     },
     getTask: (state) => {
-        console.log(state.task)
         return state.task
     }
 

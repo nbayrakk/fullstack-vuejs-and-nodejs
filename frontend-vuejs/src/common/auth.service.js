@@ -12,6 +12,9 @@ const AuthService = {
     },
     profile(){
         return ApiService.get("auth/profile")
+    },
+    editUser(user,userId){
+        return ApiService.put(`auth/edit/${userId}`,user)
     }
 }
 export default  AuthService;

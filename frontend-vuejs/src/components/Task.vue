@@ -1,26 +1,24 @@
 <template>
   <div>
-    <p>
-      <b-col>
-        <div style="padding: 10px">
-          <b-form-input v-model="task.title"> </b-form-input>
-        </div>
-        <div style="padding: 10px">
-          <b-form-input v-model="task.detail"> </b-form-input>
-        </div>
-      </b-col>
-      <b-row style="justify-content: center">
-        <div style="padding: 5px">
-          <b-button @click="deleteTask" variant="danger">Delete</b-button>
-        </div>
-        <div style="padding: 5px">
-          <b-button @click="updateDetail">Update</b-button>
-        </div>
-        <div style="padding: 5px">
-          <b-button @click="openDetail" variant="success">Detail</b-button>
-        </div>
-      </b-row>
-    </p>
+    <b-col>
+      <div style="padding: 10px">
+        <b-form-input v-model="task.title"> </b-form-input>
+      </div>
+      <div style="padding: 10px">
+        <b-form-input v-model="task.detail"> </b-form-input>
+      </div>
+    </b-col>
+    <b-row style="justify-content: center">
+      <div style="padding: 5px">
+        <b-button @click="deleteTask" variant="danger">Delete</b-button>
+      </div>
+      <div style="padding: 5px">
+        <b-button @click="updateDetail">Update</b-button>
+      </div>
+      <div style="padding: 5px">
+        <b-button @click="openDetail" variant="success">Detail</b-button>
+      </div>
+    </b-row>
   </div>
 </template>
 
@@ -36,8 +34,10 @@ export default {
         this.$store.dispatch("fetchTasks").then(
           this.$bvToast.toast(`Deleted successful!`, {
             title: "",
-            variant:'success',
-            autoHideDelay:10000
+            variant: "success",
+            autoHideDelay: 10000,
+            appendToast: true,
+            solid:true
           })
         );
       });
@@ -45,7 +45,6 @@ export default {
     updateDetail() {},
 
     openDetail() {
-      console.log(this.task);
       this.$router.push({
         name: "detail",
         params: { slug: this.task.slug, taskId: this.task._id },

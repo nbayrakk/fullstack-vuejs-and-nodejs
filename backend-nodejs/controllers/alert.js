@@ -5,17 +5,16 @@ const CustomError = require('../helpers/error/CustomError')
 
 
 const addNewAlert = asyncErrorWrapper(async (req, res, next) => {
-    const task = req.params.taskId
-    const user = req.user.id
-    console.log(req.params.taskId,req.user.id)
+    const taskId = req.params.taskId
+    const userId = req.user.id
     const information = req.body
     if (!information) {
         return next(new CustomError("information is required!", 400))
     }
     const alert = await Alert.create({
         ...information,
-        task: task,
-        user: user
+        task: taskId,
+        user: userId
     })
 
     return res.status(200)
@@ -45,7 +44,7 @@ const getSingleAnswer = asyncErrorWrapper(async (req, res, next) => {
     if (!alert) {
         return next(new CustomError("There is no alert with id assosiated with task!", 400))
     }
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
         data: alert
     })
@@ -63,7 +62,7 @@ const editAlert= asyncErrorWrapper(async(req,res,next) => {
     alert.content = content
     await alert.save();
     
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
         data: alert
     })
@@ -79,7 +78,7 @@ const deleteAlert = asyncErrorWrapper(async(req,res,next) => {
     task.alerts.splice(tasks.alerts.indexOf(alertId),1)
     await task.save();
     
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
         data: "Alert deleted!"
     })

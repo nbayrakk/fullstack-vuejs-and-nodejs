@@ -15,7 +15,12 @@ const addNewtask = asyncErrorWrapper(async(req,res,next) => {
     })
 });
 const getAllTasks = asyncErrorWrapper(async(req,res,next)=> {
-    const tasks = await Task.find();
+    const tasks = await Task.find().populate({
+        path: 'user',
+        populate: {
+            path: 'user' 
+        }
+   })
     res.status(200)
     .json({
         success:true,

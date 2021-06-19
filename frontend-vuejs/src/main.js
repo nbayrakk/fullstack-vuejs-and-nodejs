@@ -19,16 +19,21 @@ Vue.config.productionTip = false
 Vue.use(require('vue-moment'));
 Vue.use(Vuex);
 
-// router.beforeEach((to, from, next) =>
-//   Promise.all([store.dispatch('checkAuth')]).then(response=>{
-//     if(store.state.auth.isAuthenticated==false){
-//       next({name:'login'})
-//     }else {
-//       next(true)
+// router.beforeEach((to, from, next) => {
+//   try {
+//     let token = store.state.auth.isAuthenticated
+//     if(token){
+//       store.dispatch('checkAuth')
+//       store.dispatch('login')
+//       next({name:'home'})
 //     }
+//   } catch (e) {
+//     next({name:'login'})
 //   }
-//   )
-// );
+// }
+
+
+
 new Vue({
   store,
   router,

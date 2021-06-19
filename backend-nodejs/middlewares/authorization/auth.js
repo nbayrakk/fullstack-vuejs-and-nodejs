@@ -1,6 +1,7 @@
 const customError = require('../../helpers/error/CustomError')
 const jwt = require('jsonwebtoken')
 const Task = require('../../models/Task')
+const User = require('../../models/user')
 const Alert = require('../../models/Alert')
 const asyncErrorWrapper = require('express-async-handler')
 
@@ -21,7 +22,6 @@ const getAccessToRouter = (req, res, next) => {
             name:decoded.name,
             id:decoded.id
         }
-        console.log(req.user)
         next();
 
     })
@@ -41,14 +41,22 @@ const getAlertOwnerAccess = asyncErrorWrapper(async(req,res,next) => {
     const userId = req.user.id
     const alertId = req.params.alertId
     const alert = await Alert.findById(alertId)
-    console.log(alert.user,userId)
     if(alert.user != userId){
         return next(new CustomError("You are not authorization this router",403))
     }
     next();
 });
+const getUserOwnerAccess = asyncErrorWrapper(async(req,res,next)=>{
+    const userId = req.params.userId
+    const user = await User.findById(userId)
+    if(!user){
+        return next(new CustomError("You are not authorization this router",403))
+    }
+    next();
+})
 module.exports = {
     getAccessToRouter,
     getTaskOwnerAccess,
-    getAlertOwnerAccess
+    getAlertOwnerAccess,
+    getUserOwnerAccess
 }

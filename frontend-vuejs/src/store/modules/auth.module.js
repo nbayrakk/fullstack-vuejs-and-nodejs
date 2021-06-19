@@ -13,11 +13,9 @@ const actions = {
 
         try {
             const { data } = await AuthService.login(user)
-            console.log(data)
             ApiService.setHeader();
             commit('setUser', data)
         } catch (error) {
-            console.log(error)
             let message = {message:"Please check your inputs!"}
             commit('setError', message);
             throw new Error()
@@ -30,7 +28,6 @@ const actions = {
             const {data} = await AuthService.register(user) 
             commit('setUser',data)
         } catch (error) {
-            console.log(error)
             let message = {message:"Please check your inputs!"}
             commit('setError', message);
             throw new Error()
@@ -41,12 +38,17 @@ const actions = {
         const {data} = await AuthService.logout()
         ApiService.setHeader();
 
-        console.log(data)
         commit('purgeAuth')
     },
-    checkAuth(context) {
-        if (jwtService.getToken()) {
+    async editUser({commit},user,userId){
+        const {data} = await AuthService.editUser(user,user.id)
+        commit('setCurrentUser',data)
+    },
+    async checkAuth(context) {
+        if (jwtService.getToken().token) {
             ApiService.setHeader();
+            let user = JSON.parse(jwtService.getToken().user) 
+            context.commit('setUser',user)
         } else {
             context.commit('purgeAuth');
         }
@@ -61,8 +63,13 @@ const actions = {
 const mutations = {
     setUser: (state, data) => {
         data.success ? state.isAuthenticated = true : state.isAuthenticated = false
-        jwtService.saveToken(data.access_token)
-        return state.user = data.user
+        jwtService.saveToken(data.access_token,data.user)
+        state.user = data.user
+    },
+    setCurrentUser:(state,data)=>{
+        state.user.name = data.name
+        state.user.email = data.email 
+        return state.user
     },
     register: () => {
 
@@ -85,8 +92,10 @@ const getters = {
         return state.isAuthenticated;
     },
     getErrors(state) {
-        console.log(state)
         return state.errors
+    },
+    getUser(state){
+        return state.user
     }
 };
 export default {

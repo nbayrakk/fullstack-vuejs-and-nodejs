@@ -16,8 +16,6 @@ export default new Router({
             name:'home',
             component:Homepage,
             beforeEnter:(to,from,next) => {
-                console.log(to)
-                console.log(from)
                 if(store.state.auth.isAuthenticated == false ){
                     next({name:'login'})
                 }else {
@@ -35,9 +33,10 @@ export default new Router({
             // ]
         },
         {
-            path:'/profile',
+            path:'/profile/:userId',
             name:'profile',
-            component:Profile    
+            component:Profile,
+            props:true
         },
         {
             path:'/task-detail/:taskId',

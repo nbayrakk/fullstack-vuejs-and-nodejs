@@ -83,7 +83,6 @@ export default {
         email: email,
         password: password,
       };
-      console.log(user);
       this.$store
         .dispatch("login", user)
         .then(() => this.$router.push({ name: "home" }))
