@@ -8,11 +8,14 @@ const Schema = mongoose.Schema
 const TaskSchema = new Schema({
     title: {
         type: String,
-        required: [true, "Name is required!"]
+        required: [true, "Name is required!"],
+        unique:false
     },
     detail: {
         type: String,
         required: true,
+        unique:false
+
     },
     slug: String,
     createdAt: {

@@ -21,6 +21,10 @@ const actions = {
     async deleteTask({commit},taskId){
         const {data} = await taskService.deleteTask(taskId)
         commit('deleteTask',data)
+    },
+    resetTaskAction({commit}){
+        console.log("asd")
+        commit('resetTask')
     }
 };
 
@@ -43,6 +47,9 @@ const mutations = {
         })
         state.tasks = newTask
         return state.tasks
+    },
+    resetTask:(state)=>{
+        state.task = {}
     }
          
     
