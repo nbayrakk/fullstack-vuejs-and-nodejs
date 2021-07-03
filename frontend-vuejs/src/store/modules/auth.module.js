@@ -95,6 +95,7 @@ const getters = {
         return state.errors
     },
     getUser(state){
+        console.log(state.user)
         return state.user
     }
 };

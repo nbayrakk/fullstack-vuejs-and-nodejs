@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Homepage from '../components/HomePage'
+import Homepage from '../views/HomePage'
 import store from '../store'
 
-import Login from '../components/Login'
-import Register from '../components/Register'
-import TaskDetail from '../components/Task-Detail'
-import Profile from '../components/Profile'
+import Login from '../views/Login'
+import Register from '../views/Register'
+import TaskDetail from '../views/Task-Detail'
+import Profile from '../views/Profile'
 Vue.use(Router)
 
 export default new Router({

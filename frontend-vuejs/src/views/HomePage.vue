@@ -1,8 +1,8 @@
 <template>
-  <div style="padding:10px">
+  <div class="container" style="padding:10px">
     <div
-      class="col-md-3 table-row"
-      style="display:inline-block"
+      class="table-row"
+      style="display:block"
       v-for="task in getTasks"
       v-bind:key="task._id"
     >
@@ -45,8 +45,7 @@ export default {
   background: #edf7f6;
 }
 .table-row:nth-of-type(even) {
-  background: #b4dbd76e
-
+  background: #b4dbd76e;
 }
 .iokul-table-header {
   display: flex;

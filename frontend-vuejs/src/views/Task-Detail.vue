@@ -65,7 +65,6 @@
 
         <div class="row" style="padding:20px">
           <b-form-input
-            style="height:10rem"
             v-model="alertContent"
           ></b-form-input>
         </div>

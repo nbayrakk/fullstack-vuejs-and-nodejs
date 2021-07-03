@@ -28,7 +28,10 @@ const login = asyncErrorWrapper(async (req, res, next) => {
         return next(new CustomError("Please check your inputs!", 401))
     }
 
-    const user = await User.findOne({ email }).select("+password")
+    const user = await User.findOne({ email:email }).select("+password")
+    if(!user){
+        return next(new CustomError("Not find user, please check your inputs!",401))
+    }
     if (!comparePassword(password, user.password)) {
         return next(new CustomError("Please check password!", 401))
     }
@@ -61,7 +64,7 @@ const getUser = asyncErrorWrapper(async (req, res, next) => {
     })
 })
 const editUser = asyncErrorWrapper(async (req, res, next) => {
-    console.log(req.body, req.user, "burada")
+    console.log(req.body, req.user)
     let { name, email } = req.body
     console.log(name, email)
     if (!name && !email) {
